@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 7, 2014 10:47:36 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tom.VendingMachine.StickerCapsule" table="STICKERCAPSULE">
+        <id name="capsuleId" type="int">
+            <column name="CAPSULEID" />
+            <generator class="increment" />
+        </id>
+        <bag name="stickers" cascade="all">
+        	<key column="CAPSULEID" />
+        	<one-to-many class="com.tom.VendingMachine.Sticker"/>
+        </bag>
+        <property name="color" column="COLOR" />
+    </class>
+</hibernate-mapping>

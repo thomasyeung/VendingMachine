@@ -1,0 +1,58 @@
+Table of Contents
+
+1. Introduction
+2. Use Cases
+3. Database Tables
+4. Class Design
+
+
+1. Introduction
+
+The project is about a capsule vending machine. You put a quarter into the slot,
+ and a capsule rolls out. A database will be used to store the capsules, and 
+each time a user turns the knob, the vending machine will remove a capsule from 
+the database and return the capsule to the user.
+
+User can now choose between mini figurines or stickers. Unlike figurines, each 
+capsule contains two stickers.
+
+2. Use Cases
+
+Anyone can interact with the toy vending machine. They can turn the knob, and 
+the machine will crank out a toy.
+
+Anyone can interact with the toy itself. They can open the capsule, and inside 
+is a mini figurine or stickers
+
+Anyone can choose between mini figurines or stickers
+
+Only the owner can refill the machine.
+
+3. Database Tables
+
+create table MiniFigurine (
+  FigurineId int primary key,
+  name varchar(255)
+);
+
+create table MiniFigurineCapsule (
+  CapsuleId int primary key,
+  Color varchar(10),
+  FigurineId int
+);
+
+create table Sticker (
+  StickerId int primary key,
+  name varchar(255),
+  CapsuleId int
+);
+
+create table StickerCapsule (
+  CapsuleId int primary key,
+  Color varchar(10)
+);
+
+4. Class Design
+
+refer to class diagrams...
+  

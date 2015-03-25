@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="tom" />
+		<property name="password" value="123" />
+	</bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	    <property name="dataSource" ref="dataSource"/>
+	    <property name="mappingResources">
+	      <list>
+	      	<value>/MiniFigurine.hbm.xml</value>
+	      	<value>/MiniFigurineCapsule.hbm.xml</value>
+	      	<value>/Sticker.hbm.xml</value>
+	      	<value>/StickerCapsule.hbm.xml</value>
+	      </list>
+	    </property>
+	    <property name="hibernateProperties">
+	      <props>
+	        <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+	        <prop key="hibernate.show_sql">true</prop>
+	      </props>
+	    </property>
+	  </bean>
+	  
+	  <bean id="red capsule" scope="prototype" class="com.tom.VendingMachine.MiniFigurineCapsule">
+  		<property name="color" value="red" />
+  		<property name="figurine" ref="batman figurine" />
+  	</bean>
+  	
+  	<bean id="batman figurine" scope="prototype" class="com.tom.VendingMachine.MiniFigurine">
+  		<property name="name" value="batman" />
+  	</bean>
+  	
+  	<bean id="blue capsule" scope="prototype" class="com.tom.VendingMachine.MiniFigurineCapsule">
+  		<property name="color" value="blue" />
+  		<property name="figurine" ref="superman figurine" />
+  	</bean>
+  	
+  	<bean id="superman figurine" scope="prototype" class="com.tom.VendingMachine.MiniFigurine">
+  		<property name="name" value="superman" />
+  	</bean>
+  	
+  	<bean id="green capsule" scope="prototype" class="com.tom.VendingMachine.MiniFigurineCapsule">
+  		<property name="color" value="green" />
+  		<property name="figurine" ref="spiderman figurine" />
+  	</bean>
+  	
+  	<bean id="spiderman figurine" scope="prototype" class="com.tom.VendingMachine.MiniFigurine">
+  		<property name="name" value="spiderman" />
+  	</bean>
+  	
+  	<bean id="figurine vending machine" class="com.tom.VendingMachine.CapsuleVendingMachine">
+  		<property name="dao" ref="figurine capsule dao" />
+  		<property name="capsuleFactory" ref="MiniFigurineCapsuleFactory" />
+  	</bean>
+  	
+  	<bean id="figurine capsule dao" class="com.tom.VendingMachine.MiniFigurineCapsuleDAO">
+  		<property name="sessionFactory" ref="sessionFactory" />
+  	</bean>
+  	
+  	<bean id="MiniFigurineCapsuleFactory" class="com.tom.VendingMachine.MiniFigurineCapsuleFactory">
+  	</bean>
+  	
+  	<bean id="mickey mouse sticker" class="com.tom.VendingMachine.Sticker" scope="prototype">
+  		<property name="name" value="mickey mouse" />
+  	</bean>
+  	
+  	<bean id="donald duck sticker" class="com.tom.VendingMachine.Sticker" scope="prototype">
+  		<property name="name" value="donald duck" />
+  	</bean>
+  	
+  	<bean id="goofy sticker" class="com.tom.VendingMachine.Sticker" scope="prototype">
+  		<property name="name" value="goofy" />
+  	</bean>
+  	
+  	<bean id="purple capsule" scope="prototype" class="com.tom.VendingMachine.StickerCapsule">
+  		<property name="color" value="purple" />
+  		<property name="stickers">
+  			<list value-type="com.tom.VendingMachine.Sticker">
+  				<ref bean="mickey mouse sticker"/>
+  				<ref bean="donald duck sticker" />
+  			</list>
+  		</property>
+  	</bean>
+  	
+  	<bean id="yellow capsule" scope="prototype" class="com.tom.VendingMachine.StickerCapsule">
+  		<property name="color" value="yellow" />
+  		<property name="stickers">
+  			<list value-type="com.tom.VendingMachine.Sticker">
+  				<ref bean="mickey mouse sticker"/>
+  				<ref bean="goofy sticker" />
+  			</list>
+  		</property>
+  	</bean>
+  	
+  	<bean id="orange capsule" scope="prototype" class="com.tom.VendingMachine.StickerCapsule">
+  		<property name="color" value="orange" />
+  		<property name="stickers">
+  			<list value-type="com.tom.VendingMachine.Sticker">
+  				<ref bean="goofy sticker"/>
+  				<ref bean="donald duck sticker" />
+  			</list>
+  		</property>
+  	</bean>
+  	
+  	<bean id="sticker vending machine" class="com.tom.VendingMachine.CapsuleVendingMachine">
+  		<property name="dao" ref="sticker capsule dao" />
+  		<property name="capsuleFactory" ref="StickerCapsuleFactory" />
+  	</bean>
+  	
+  	<bean id="sticker capsule dao" class="com.tom.VendingMachine.StickerCapsuleDAO">
+  		<property name="sessionFactory" ref="sessionFactory" />
+  	</bean>
+  	
+  	<bean id="StickerCapsuleFactory" class="com.tom.VendingMachine.StickerCapsuleFactory">
+  	</bean>
+  	
+</beans>
